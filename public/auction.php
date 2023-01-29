@@ -35,7 +35,7 @@ foreach($aucttitle as $row){
         <section class="details">
             <h2>Product name: <?php echo $row['title'] ?></h2>
             <h3>Procuct Category: <?php echo $cats['name']?> </h3>
-            <p>Auction created by <a href="#">User.Name</a></p>
+            <p>Auction created by <a href="#"><?php echo $row['username'] ?> </a></p>
 				<p class="price">Current bid: £123.45</p>
 				<time>Time left: 8 hours 3 minutes</time>
 				<form action="#" class="bid">
@@ -57,11 +57,11 @@ foreach($aucttitle as $row){
 
 						</ul>
 
-                <?php }
-				if(isset($_SESSION['loggedin'])){ ?>
+                <?php 
+				if(isset($_SESSION['loggedin'])) { ?>
 
 						<form>
-							<label>Add your review</label> <textarea name="reviewtext"></textarea>
+							<label>Add your review of user </label> <textarea name="reviewtext"></textarea>
                             <form action="#">
 						<label>Review</label> <input name = "reviewText" type="text" />
 						<label>Another Text box</label> <input type="text" />
@@ -73,9 +73,17 @@ foreach($aucttitle as $row){
 					</article>
 
 					<hr />
-
+			
+  					<?php {
+					if(isset($_SESSION['loggedin']) === $row['username'] or isset($_SESSION['admin'])) {  
+						?>
+					<a id="edit" href="editAuction.php?title=<?php echo $row['title']; ?> ">Edit your Auction</a>
 <?php
-    }
-}  
+
+					}
+				}
+			}
+		}
+}
 require 'footer.php';
 ?>

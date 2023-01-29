@@ -9,16 +9,21 @@ if (isset($_POST['submit'])) {
 	$stmt = $pdo->prepare('INSERT INTO user(email, name, password, admin)
 									VALUES (:email, :name, :password, :admin)
 ');
+
+$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
 $values = [
 	'name' => $_POST['name'],
-	'password' => $_POST['password'],
+	'password' => $hash,
 	'email' => $_POST['email'],
 	'admin' => 'n'
 ];
+
 $stmt->execute($values);
+
 echo "Account created please login";
 //else display form
- }
+}
 else {
 ?>
 	<h1>Register</h1>

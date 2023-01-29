@@ -8,8 +8,8 @@ require 'navbar.php';
 if(isset($_SESSION['loggedin'])){ 
 
 if(isset($_POST['submit'])){
-    $stmt = $pdo->prepare('INSERT INTO auction (title, description, endDate, categoryId)
-                           VALUES (:title, :description, :endDate, :categoryId)
+    $stmt = $pdo->prepare('INSERT INTO auction (title, description, endDate, categoryId, username)
+                           VALUES (:title, :description, :endDate, :categoryId, :username)
 ');
 
 $values = [
@@ -17,6 +17,7 @@ $values = [
     'description'=>$_POST['description'],
     'endDate'=>$_POST['endDate'],
     'categoryId'=>$_POST['categoryId'],
+    'username'=>$_POST['username']
 ];
 
 $stmt->execute($values);
@@ -28,8 +29,8 @@ else{
     ?>
 
 <form action="addAuction.php" method="POST">
-
-						<label>Auction Title:</label> <input name = "title" type="text" />
+                        <input type="hidden" name="username" value="<?php echo $_SESSION['loggedin'] ?>"/>
+						<label>Auction Title:</label> <input name = "title" type="text" value="" />
 						<label>Description:</label> <textarea name="description"></textarea>
                         <label>Choose a category:</label>
                             <select name="categoryId" id="categoryId">

@@ -5,6 +5,7 @@ require 'database.php';
 require 'header.php';
 require 'navbar.php';
 
+if(isset($_SESSION['admin'])) {
 if(isset ($_POST['submit'])) {
     $stmt = $pdo->prepare ('UPDATE category SET name = :name WHERE categoryId = :categoryId');
 
@@ -33,10 +34,11 @@ else if(isset($_GET['categoryId'])) {
             <label>category name: </label>
             <input type="text" name="name" value="<?php echo $names['name']; ?>"/>
             <input type="submit" name="submit" value="edit category"/>
-            <p><a id="delete" href="deleteCategory.php?categoryId=<?php echo $names['categoryId']; ?> ">Delete category</a></p>
+            <a id="delete" href="deleteCategory.php?categoryId=<?php echo $names['categoryId']; ?> ">Delete category</a>
         </form>
        
         <?php
+}
 }
 
 require 'footer.php';
